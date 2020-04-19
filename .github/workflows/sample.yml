@@ -1,14 +1,20 @@
 name: shell commmands
 
-on: [push]
+on:
+  repository_dispatch:
+    type: [on-demand-test]
 
 
 jobs:
   run-shell-command:
     runs-on: ubuntu-latest
     steps:
+      - name: client payload
+        run: echo ${{github.event.client_payload.env}}
+
       - name: echo
         run: echo "Hello World"
+        
       - name: multiline script
         run: |
           node -v
